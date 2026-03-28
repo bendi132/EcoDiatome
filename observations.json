@@ -1,0 +1,47 @@
+[
+  {
+    "id": "obs-001",
+    "date": "2024-08-15",
+    "location": {
+      "name": "Balaton, Tihany",
+      "lat": 46.9019,
+      "lng": 17.8897,
+      "habitat": "Littoral zone, shallow water"
+    },
+    "species": [
+      { "name": "Cyclotella meneghiniana", "count": "abundant", "notes": "Dominant species" },
+      { "name": "Navicula cryptocephala", "count": "common" }
+    ],
+    "images": ["images/gallery/obs-001-1.jpg"],
+    "waterParams": {
+      "pH": 8.2,
+      "conductivity": 580,
+      "temperature": 22.5
+    },
+    "notes": "Eutrophic conditions, high phytoplankton biomass.",
+    "published": true
+  },
+  {
+    "id": "obs-002",
+    "date": "2024-09-03",
+    "location": {
+      "name": "Fertő-tó, Sarród",
+      "lat": 47.6500,
+      "lng": 16.8167,
+      "habitat": "Open water, pelagic"
+    },
+    "species": [
+      { "name": "Aulacoseira granulata", "count": "abundant" },
+      { "name": "Fragilaria crotonensis", "count": "common", "notes": "Chain-forming" },
+      { "name": "Stephanodiscus hantzschii", "count": "rare" }
+    ],
+    "images": [],
+    "waterParams": {
+      "pH": 7.8,
+      "conductivity": 890,
+      "temperature": 18.1
+    },
+    "notes": "Reed belt edge sample. High turbidity.",
+    "published": true
+  }
+]

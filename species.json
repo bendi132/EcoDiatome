@@ -1,0 +1,50 @@
+[
+  {
+    "id": "sp-001",
+    "name": "Cyclotella meneghiniana",
+    "author": "Kützing, 1844",
+    "family": "Stephanodiscaceae",
+    "ecology": {
+      "salinity": "freshwater",
+      "pH": "alkaliphilous",
+      "saprobity": "β-mesosaprobic",
+      "trophicState": "eutrophic"
+    },
+    "wfrf": 2.1,
+    "description": "A cosmopolitan centric diatom common in eutrophic lakes and slow-moving rivers. Valve diameter 6–40 µm.",
+    "thumbnail": "images/species/cyclotella-meneghiniana.jpg",
+    "observedLocations": ["obs-001"]
+  },
+  {
+    "id": "sp-002",
+    "name": "Navicula cryptocephala",
+    "author": "Kützing, 1844",
+    "family": "Naviculaceae",
+    "ecology": {
+      "salinity": "freshwater",
+      "pH": "circumneutral",
+      "saprobity": "β-mesosaprobic",
+      "trophicState": "mesotrophic"
+    },
+    "wfrf": 3.4,
+    "description": "A pennate diatom with lanceolate to rhombic-lanceolate valves. Widely distributed in clean to moderately polluted waters.",
+    "thumbnail": "images/species/navicula-cryptocephala.jpg",
+    "observedLocations": ["obs-001"]
+  },
+  {
+    "id": "sp-003",
+    "name": "Aulacoseira granulata",
+    "author": "(Ehrenberg) Simonsen, 1979",
+    "family": "Aulacoseiraceae",
+    "ecology": {
+      "salinity": "freshwater",
+      "pH": "indifferent",
+      "saprobity": "β-mesosaprobic",
+      "trophicState": "eutrophic"
+    },
+    "wfrf": 1.8,
+    "description": "Chain-forming centric diatom typical of turbid, eutrophic lakes. Cylindrical cells with coarse striae.",
+    "thumbnail": "images/species/aulacoseira-granulata.jpg",
+    "observedLocations": ["obs-002"]
+  }
+]

@@ -3,114 +3,335 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diatom Research — Bendegúz</title>
-  <meta name="description" content="Field observations and microscopy of freshwater diatoms from Hungarian ecosystems.">
-
-  <!-- Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-  <link rel="stylesheet" href="css/style.css">
+  <title>Admin · Diatom Research</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
-<nav id="nav">
-  <a class="nav-logo" href="#">
-    <div class="logo-icon">◎</div>
-    Diatom Research
-  </a>
-  <div class="nav-links">
-    <a href="#observations" data-section="observations">Observations</a>
-    <a href="#atlas" data-section="atlas">Atlas</a>
-    <a href="#publications" data-section="publications">Publications</a>
+<!-- ─── LOGIN ─── -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">◎</div>
+    <div class="login-title">Research Admin</div>
+    <input class="login-input" id="password-input" type="password" placeholder="Enter password">
+    <button class="login-btn" onclick="login()">Authenticate</button>
+    <div class="login-error" id="login-error"></div>
   </div>
-</nav>
-
-<!-- ─── HERO ─── -->
-<section id="hero">
-  <div class="hero-tag">Freshwater Diatom Research</div>
-  <h1 class="hero-title">
-    Microscopy &amp;<br><em>Field Ecology</em>
-  </h1>
-  <p class="hero-sub">
-    Personal research journal documenting diatom assemblages from Hungarian freshwater ecosystems. Combining microscopy, field sampling, and ecological indices.
-  </p>
-  <div class="hero-stats">
-    <div class="stat-item">
-      <span class="stat-num" id="stat-obs">—</span>
-      <span class="stat-label">Observations</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" id="stat-species">—</span>
-      <span class="stat-label">Species</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" id="stat-pubs">—</span>
-      <span class="stat-label">Publications</span>
-    </div>
-  </div>
-</section>
-
-<!-- ─── MAP ─── -->
-<section class="section" id="map-section">
-  <div class="section-header">
-    <h2 class="section-title">Sampling Locations</h2>
-  </div>
-  <div id="map-container">
-    <div id="map"></div>
-  </div>
-</section>
-
-<!-- ─── OBSERVATIONS ─── -->
-<section class="section" id="observations">
-  <div class="section-header">
-    <h2 class="section-title">Field Observations</h2>
-    <span class="section-count" id="obs-count"></span>
-  </div>
-  <div class="obs-grid" id="obs-grid"></div>
-</section>
-
-<!-- ─── ATLAS ─── -->
-<section class="section" id="atlas">
-  <div class="section-header">
-    <h2 class="section-title">Species Atlas</h2>
-    <span class="section-count" id="sp-count"></span>
-  </div>
-  <div class="atlas-controls">
-    <input class="atlas-search" id="sp-search" type="text" placeholder="Search species or family…">
-    <select class="atlas-filter" id="sp-filter">
-      <option value="">All trophic states</option>
-      <option value="oligotrophic">Oligotrophic</option>
-      <option value="mesotrophic">Mesotrophic</option>
-      <option value="eutrophic">Eutrophic</option>
-      <option value="hypertrophic">Hypertrophic</option>
-    </select>
-  </div>
-  <div class="species-grid" id="species-grid"></div>
-</section>
-
-<!-- ─── PUBLICATIONS ─── -->
-<section class="section" id="publications">
-  <div class="section-header">
-    <h2 class="section-title">Publications &amp; Research</h2>
-    <span class="section-count" id="pub-count"></span>
-  </div>
-  <div class="pub-list" id="pub-list"></div>
-</section>
-
-<!-- ─── FOOTER ─── -->
-<footer id="footer">
-  <p>Bendegúz · Diatom Research ·
-    <a href="https://github.com/bendi132" target="_blank">github.com/bendi132</a>
-  </p>
-</footer>
-
-<!-- ─── MODAL ─── -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal" id="modal-content"></div>
 </div>
 
-<script src="js/main.js"></script>
+<!-- ─── ADMIN ─── -->
+<div id="admin-screen">
+  <div class="admin-wrap">
+
+    <div class="admin-header">
+      <div>
+        <div class="admin-title">◎ Diatom Research — Admin</div>
+        <div class="admin-subtitle">Add observations, species, and publications</div>
+      </div>
+      <div class="admin-nav">
+        <button class="tab-btn active" data-tab="obs" onclick="switchTab('obs')">Observation</button>
+        <button class="tab-btn" data-tab="sp" onclick="switchTab('sp')">Species</button>
+        <button class="tab-btn" data-tab="pub" onclick="switchTab('pub')">Publication</button>
+        <button class="tab-btn" data-tab="existing" onclick="switchTab('existing')">Existing</button>
+      </div>
+    </div>
+
+    <div class="notice">
+      <strong>How it works:</strong> Fill in the form → click Generate → the tool produces an updated
+      <code>observations.json</code> (or <code>species.json</code>) with your new entry added.
+      Download the file and replace the one in your <code>data/</code> folder on GitHub.
+      No server needed.
+    </div>
+
+    <!-- ─── TAB: OBSERVATION ─── -->
+    <div class="tab-content active" id="tab-obs">
+
+      <div class="form-section">
+        <div class="form-section-title">Location</div>
+        <div class="form-row col-2">
+          <div class="form-group">
+            <label class="form-label">Location Name</label>
+            <input class="form-input" id="obs-location" type="text" placeholder="e.g. Balaton, Tihany">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input class="form-input" id="obs-date" type="date">
+          </div>
+        </div>
+        <div class="form-row col-3">
+          <div class="form-group">
+            <label class="form-label">Latitude</label>
+            <input class="form-input" id="obs-lat" type="number" step="any" placeholder="46.9019">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Longitude</label>
+            <input class="form-input" id="obs-lng" type="number" step="any" placeholder="17.8897">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Habitat</label>
+            <input class="form-input" id="obs-habitat" type="text" placeholder="e.g. Littoral zone">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Species Observed</div>
+        <div id="species-rows"></div>
+        <button class="add-row-btn" onclick="addSpeciesRow()">+ Add species</button>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Water Parameters (optional)</div>
+        <div class="form-row col-3">
+          <div class="form-group">
+            <label class="form-label">pH</label>
+            <input class="form-input" id="obs-ph" type="number" step="0.1" placeholder="7.8">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Conductivity (µS/cm)</label>
+            <input class="form-input" id="obs-cond" type="number" placeholder="580">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Temperature (°C)</label>
+            <input class="form-input" id="obs-temp" type="number" step="0.1" placeholder="18.5">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Media & Notes</div>
+        <div class="form-group" style="margin-bottom:16px">
+          <label class="form-label">Image paths (comma-separated)</label>
+          <input class="form-input" id="obs-images" type="text" placeholder="images/gallery/obs-003-1.jpg, images/gallery/obs-003-2.jpg">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Field Notes</label>
+          <textarea class="form-textarea" id="obs-notes" placeholder="Observations, conditions, remarks…"></textarea>
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button class="generate-btn" onclick="generateObsJSON()">Generate JSON</button>
+        <button class="clear-btn" onclick="clearForm('tab-obs')">Clear</button>
+      </div>
+
+      <div class="output-section" id="obs-output-section" style="display:none;margin-top:24px">
+        <div class="output-header">
+          <span class="output-title">observations.json — updated</span>
+          <div class="output-actions">
+            <button class="copy-btn" onclick="copyJSON('json-output-obs')">Copy</button>
+            <button class="dl-btn" onclick="downloadJSON('json-output-obs','observations.json')">Download</button>
+          </div>
+        </div>
+        <textarea id="json-output-obs" class="json-output" readonly></textarea>
+      </div>
+
+    </div><!-- /tab-obs -->
+
+    <!-- ─── TAB: SPECIES ─── -->
+    <div class="tab-content" id="tab-sp">
+
+      <div class="form-section">
+        <div class="form-section-title">Taxonomy</div>
+        <div class="form-row col-2">
+          <div class="form-group">
+            <label class="form-label">Species Name (italic)</label>
+            <input class="form-input" id="sp-name" type="text" placeholder="Cyclotella meneghiniana">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Author & Year</label>
+            <input class="form-input" id="sp-author" type="text" placeholder="Kützing, 1844">
+          </div>
+        </div>
+        <div class="form-row col-2">
+          <div class="form-group">
+            <label class="form-label">Family</label>
+            <input class="form-input" id="sp-family" type="text" placeholder="Stephanodiscaceae">
+          </div>
+          <div class="form-group">
+            <label class="form-label">WFRF Index</label>
+            <input class="form-input" id="sp-wfrf" type="number" step="0.1" placeholder="2.1">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Ecology</div>
+        <div class="form-row col-2">
+          <div class="form-group">
+            <label class="form-label">pH Preference</label>
+            <select class="form-select" id="sp-ph">
+              <option value="alkaliphilous">Alkaliphilous</option>
+              <option value="circumneutral">Circumneutral</option>
+              <option value="acidophilous">Acidophilous</option>
+              <option value="indifferent">Indifferent</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Trophic State</label>
+            <select class="form-select" id="sp-trophic">
+              <option value="oligotrophic">Oligotrophic</option>
+              <option value="mesotrophic">Mesotrophic</option>
+              <option value="eutrophic">Eutrophic</option>
+              <option value="hypertrophic">Hypertrophic</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row col-2">
+          <div class="form-group">
+            <label class="form-label">Saprobity</label>
+            <select class="form-select" id="sp-saprobity">
+              <option value="oligosaprobic">Oligosaprobic</option>
+              <option value="β-mesosaprobic">β-mesosaprobic</option>
+              <option value="α-mesosaprobic">α-mesosaprobic</option>
+              <option value="polysaprobic">Polysaprobic</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Salinity</label>
+            <select class="form-select" id="sp-salinity">
+              <option value="freshwater">Freshwater</option>
+              <option value="brackish">Brackish</option>
+              <option value="marine">Marine</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Description & Media</div>
+        <div class="form-group" style="margin-bottom:16px">
+          <label class="form-label">Thumbnail path</label>
+          <input class="form-input" id="sp-thumb" type="text" placeholder="images/species/cyclotella-meneghiniana.jpg">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" id="sp-desc" placeholder="Morphology, distribution, ecology…" style="min-height:100px"></textarea>
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button class="generate-btn" onclick="generateSpJSON()">Generate JSON</button>
+        <button class="clear-btn" onclick="clearForm('tab-sp')">Clear</button>
+      </div>
+
+      <div class="output-section" id="sp-output-section" style="display:none;margin-top:24px">
+        <div class="output-header">
+          <span class="output-title">species.json — updated</span>
+          <div class="output-actions">
+            <button class="copy-btn" onclick="copyJSON('json-output-sp')">Copy</button>
+            <button class="dl-btn" onclick="downloadJSON('json-output-sp','species.json')">Download</button>
+          </div>
+        </div>
+        <textarea id="json-output-sp" class="json-output" readonly></textarea>
+      </div>
+
+    </div><!-- /tab-sp -->
+
+    <!-- ─── TAB: PUBLICATION ─── -->
+    <div class="tab-content" id="tab-pub">
+
+      <div class="form-section">
+        <div class="form-section-title">Publication Details</div>
+        <div class="form-group" style="margin-bottom:16px">
+          <label class="form-label">Title</label>
+          <input class="form-input" id="pub-title" type="text" placeholder="Full title of publication">
+        </div>
+        <div class="form-row col-3">
+          <div class="form-group">
+            <label class="form-label">Authors</label>
+            <input class="form-input" id="pub-authors" type="text" placeholder="Bendegúz et al.">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Year</label>
+            <input class="form-input" id="pub-year" type="number" placeholder="2024">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select class="form-select" id="pub-type">
+              <option value="article">Article</option>
+              <option value="thesis">Thesis</option>
+              <option value="conference">Conference</option>
+              <option value="report">Report</option>
+              <option value="preprint">Preprint</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row col-2">
+          <div class="form-group">
+            <label class="form-label">Journal / Venue</label>
+            <input class="form-input" id="pub-journal" type="text" placeholder="Hydrobiologia">
+          </div>
+          <div class="form-group">
+            <label class="form-label">DOI (without https://doi.org/)</label>
+            <input class="form-input" id="pub-doi" type="text" placeholder="10.1007/s10750-024-00001-0">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:16px">
+          <label class="form-label">Abstract</label>
+          <textarea class="form-textarea" id="pub-abstract" placeholder="Abstract text…" style="min-height:100px"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tags (comma-separated)</label>
+          <input class="form-input" id="pub-tags" type="text" placeholder="WFD, Hungary, ecological status">
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button class="generate-btn" onclick="generatePubJSON()">Generate JSON</button>
+        <button class="clear-btn" onclick="clearForm('tab-pub')">Clear</button>
+      </div>
+
+      <div class="output-section" id="pub-output-section" style="display:none;margin-top:24px">
+        <div class="output-header">
+          <span class="output-title">publications.json — updated</span>
+          <div class="output-actions">
+            <button class="copy-btn" onclick="copyJSON('json-output-pub')">Copy</button>
+            <button class="dl-btn" onclick="downloadJSON('json-output-pub','publications.json')">Download</button>
+          </div>
+        </div>
+        <textarea id="json-output-pub" class="json-output" readonly></textarea>
+      </div>
+
+    </div><!-- /tab-pub -->
+
+    <!-- ─── TAB: EXISTING ─── -->
+    <div class="tab-content" id="tab-existing">
+      <div class="form-section">
+        <div class="form-section-title">Existing Observations ({{ existingObs.length }})</div>
+        <div class="existing-list" id="existing-obs">Loading…</div>
+      </div>
+      <div class="form-section">
+        <div class="form-section-title">Existing Species</div>
+        <div class="existing-list" id="existing-sp">Loading…</div>
+      </div>
+    </div><!-- /tab-existing -->
+
+  </div><!-- /admin-wrap -->
+</div><!-- /admin-screen -->
+
+<script src="admin.js"></script>
+<script>
+// Publication JSON generator (inline since it's small)
+function generatePubJSON() {
+  const val = id => document.getElementById(id).value.trim();
+  const newId = `pub-${String((existingPubs ? existingPubs.length : 0) + 1).padStart(3, '0')}`;
+  const pub = {
+    id: newId,
+    title: val('pub-title'),
+    authors: val('pub-authors'),
+    year: val('pub-year') ? parseInt(val('pub-year')) : undefined,
+    journal: val('pub-journal'),
+    doi: val('pub-doi') || '',
+    abstract: val('pub-abstract'),
+    tags: val('pub-tags') ? val('pub-tags').split(',').map(t => t.trim()) : [],
+    type: val('pub-type'),
+  };
+  const updated = [...(existingPubs || []), pub];
+  document.getElementById('json-output-pub').value = JSON.stringify(updated, null, 2);
+  document.getElementById('pub-output-section').style.display = 'block';
+}
+</script>
 </body>
 </html>
