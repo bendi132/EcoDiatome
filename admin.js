@@ -5,7 +5,7 @@
 //  and update PASSWORD_HASH below.
 // ─────────────────────────────────────────────
 
-// Default password: "diatom2024"
+// Default password: "Bendi13111"
 // To change: generate SHA-256 of your password at https://emn178.github.io/online-tools/sha256.html
 // and replace the string below.
 const PASSWORD_HASH = '7e77df8c2f88e55035e344cf4b9c953a6d2d8bd8c11fa43af218c01bb7729b4a';
