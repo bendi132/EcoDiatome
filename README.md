@@ -1,4 +1,4 @@
-# 🔬 Diatom Research Site
+# 🔬 EchoDiatome
 
 Personal research website for documenting freshwater diatom field observations, species atlas, and publications. Runs on **GitHub Pages** — no server needed.
 
