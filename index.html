@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diatom Research — Bendegúz</title>
+  <meta name="description" content="Field observations and microscopy of freshwater diatoms from Hungarian ecosystems.">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <div class="logo-icon">◎</div>
+    Diatom Research
+  </a>
+  <div class="nav-links">
+    <a href="#observations" data-section="observations">Observations</a>
+    <a href="#atlas" data-section="atlas">Atlas</a>
+    <a href="#publications" data-section="publications">Publications</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-tag">Freshwater Diatom Research</div>
+  <h1 class="hero-title">
+    Microscopy &amp;<br><em>Field Ecology</em>
+  </h1>
+  <p class="hero-sub">
+    Personal research journal documenting diatom assemblages from Hungarian freshwater ecosystems. Combining microscopy, field sampling, and ecological indices.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num" id="stat-obs">—</span>
+      <span class="stat-label">Observations</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-species">—</span>
+      <span class="stat-label">Species</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-pubs">—</span>
+      <span class="stat-label">Publications</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MAP ─── -->
+<section class="section" id="map-section">
+  <div class="section-header">
+    <h2 class="section-title">Sampling Locations</h2>
+  </div>
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+</section>
+
+<!-- ─── OBSERVATIONS ─── -->
+<section class="section" id="observations">
+  <div class="section-header">
+    <h2 class="section-title">Field Observations</h2>
+    <span class="section-count" id="obs-count"></span>
+  </div>
+  <div class="obs-grid" id="obs-grid"></div>
+</section>
+
+<!-- ─── ATLAS ─── -->
+<section class="section" id="atlas">
+  <div class="section-header">
+    <h2 class="section-title">Species Atlas</h2>
+    <span class="section-count" id="sp-count"></span>
+  </div>
+  <div class="atlas-controls">
+    <input class="atlas-search" id="sp-search" type="text" placeholder="Search species or family…">
+    <select class="atlas-filter" id="sp-filter">
+      <option value="">All trophic states</option>
+      <option value="oligotrophic">Oligotrophic</option>
+      <option value="mesotrophic">Mesotrophic</option>
+      <option value="eutrophic">Eutrophic</option>
+      <option value="hypertrophic">Hypertrophic</option>
+    </select>
+  </div>
+  <div class="species-grid" id="species-grid"></div>
+</section>
+
+<!-- ─── PUBLICATIONS ─── -->
+<section class="section" id="publications">
+  <div class="section-header">
+    <h2 class="section-title">Publications &amp; Research</h2>
+    <span class="section-count" id="pub-count"></span>
+  </div>
+  <div class="pub-list" id="pub-list"></div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer id="footer">
+  <p>Bendegúz · Diatom Research ·
+    <a href="https://github.com/bendi132" target="_blank">github.com/bendi132</a>
+  </p>
+</footer>
+
+<!-- ─── MODAL ─── -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
