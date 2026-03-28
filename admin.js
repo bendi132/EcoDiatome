@@ -8,7 +8,7 @@
 // Default password: "diatom2024"
 // To change: generate SHA-256 of your password at https://emn178.github.io/online-tools/sha256.html
 // and replace the string below.
-const PASSWORD_HASH = 'a3f1b2c9e8d07f5a4b6c2e9d3f0a1b8c7e6d5f4a3b2c1e0d9f8a7b6c5d4e3f2';
+const PASSWORD_HASH = '7e77df8c2f88e55035e344cf4b9c953a6d2d8bd8c11fa43af218c01bb7729b4a';
 // ↑ THIS IS A PLACEHOLDER — replace with your real SHA-256 hash!
 
 async function sha256(message) {
